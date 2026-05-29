@@ -1,0 +1,56 @@
+name: Update shadcn components
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Every Monday at 6am UTC
+  workflow_dispatch: # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: macos-latest # sed -i '' syntax
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Regenerate from latest shadcn
+        run: ./scripts/regenerate.sh
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet package/src/ package/dist/ && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Get shadcn version
+        if: steps.diff.outputs.changed == 'true'
+        id: version
+        run: |
+          SHADCN_VER=$(npx shadcn@latest --version 2>/dev/null || echo "unknown")
+          echo "shadcn=$SHADCN_VER" >> $GITHUB_OUTPUT
+
+      - name: Bump patch version
+        if: steps.diff.outputs.changed == 'true'
+        working-directory: package
+        run: npm version patch --no-git-tag-version
+
+      - name: Commit & push
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          VERSION=$(node -p "require('./package/package.json').version")
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: update to shadcn ${{ steps.version.outputs.shadcn }} (v${VERSION})"
+          git push
+
+      - name: Publish to npm
+        if: steps.diff.outputs.changed == 'true'
+        working-directory: package
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

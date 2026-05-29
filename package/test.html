@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>shadcn-ui-bundled — Local Test</title>
+
+  <!-- 1. Tailwind v4 browser CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:is(.dark *));
+    @theme inline {
+      --font-sans: ui-sans-serif, system-ui, sans-serif;
+      --color-background: var(--background);
+      --color-foreground: var(--foreground);
+      --color-primary: var(--primary);
+      --color-primary-foreground: var(--primary-foreground);
+      --color-secondary: var(--secondary);
+      --color-secondary-foreground: var(--secondary-foreground);
+      --color-muted: var(--muted);
+      --color-muted-foreground: var(--muted-foreground);
+      --color-accent: var(--accent);
+      --color-accent-foreground: var(--accent-foreground);
+      --color-destructive: var(--destructive);
+      --color-popover: var(--popover);
+      --color-popover-foreground: var(--popover-foreground);
+      --color-card: var(--card);
+      --color-card-foreground: var(--card-foreground);
+      --color-border: var(--border);
+      --color-input: var(--input);
+      --color-ring: var(--ring);
+      --radius-sm: calc(var(--radius) * 0.6);
+      --radius-md: calc(var(--radius) * 0.8);
+      --radius-lg: var(--radius);
+      --radius-xl: calc(var(--radius) * 1.4);
+      --radius-2xl: calc(var(--radius) * 1.8);
+    }
+    :root {
+      --background: oklch(1 0 0);
+      --foreground: oklch(0.145 0 0);
+      --primary: oklch(0.205 0 0);
+      --primary-foreground: oklch(0.985 0 0);
+      --secondary: oklch(0.97 0 0);
+      --secondary-foreground: oklch(0.205 0 0);
+      --muted: oklch(0.97 0 0);
+      --muted-foreground: oklch(0.556 0 0);
+      --accent: oklch(0.97 0 0);
+      --accent-foreground: oklch(0.205 0 0);
+      --destructive: oklch(0.577 0.245 27.325);
+      --popover: oklch(1 0 0);
+      --popover-foreground: oklch(0.145 0 0);
+      --card: oklch(1 0 0);
+      --card-foreground: oklch(0.145 0 0);
+      --border: oklch(0.922 0 0);
+      --input: oklch(0.922 0 0);
+      --ring: oklch(0.708 0 0);
+      --radius: 0.625rem;
+    }
+    .dark {
+      --background: oklch(0.145 0 0);
+      --foreground: oklch(0.985 0 0);
+      --primary: oklch(0.922 0 0);
+      --primary-foreground: oklch(0.205 0 0);
+      --secondary: oklch(0.269 0 0);
+      --secondary-foreground: oklch(0.985 0 0);
+      --muted: oklch(0.269 0 0);
+      --muted-foreground: oklch(0.708 0 0);
+      --accent: oklch(0.269 0 0);
+      --accent-foreground: oklch(0.985 0 0);
+      --destructive: oklch(0.704 0.191 22.216);
+      --border: oklch(1 0 0 / 10%);
+      --input: oklch(1 0 0 / 15%);
+      --ring: oklch(0.556 0 0);
+      --card: oklch(0.205 0 0);
+      --card-foreground: oklch(0.985 0 0);
+      --popover: oklch(0.205 0 0);
+      --popover-foreground: oklch(0.985 0 0);
+    }
+    @layer base {
+      * { @apply border-border outline-ring/50; }
+      body { @apply bg-background text-foreground; }
+    }
+  </style>
+
+  <!-- 2. Import map: React from esm.sh, shadcn from local server -->
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@19",
+      "react/jsx-runtime": "https://esm.sh/react@19/jsx-runtime",
+      "react/jsx-dev-runtime": "https://esm.sh/react@19/jsx-dev-runtime",
+      "react-dom": "https://esm.sh/react-dom@19",
+      "react-dom/client": "https://esm.sh/react-dom@19/client",
+      "shadcn": "/dist/index.standalone.mjs"
+    }
+  }
+  </script>
+
+  <!-- 3. Babel standalone for JSX/TSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    Babel.registerPreset("tsx-auto", {
+      presets: [
+        [Babel.availablePresets["react"], { runtime: "automatic" }],
+        [Babel.availablePresets["typescript"], { isTSX: true, allExtensions: true }],
+      ],
+    });
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" data-type="module" data-presets="tsx-auto">
+    import { useState } from "react";
+    import { createRoot } from "react-dom/client";
+    import {
+      Button,
+      Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
+      Input,
+      Label,
+      Badge,
+      Separator,
+      Switch,
+      Tabs, TabsList, TabsTrigger, TabsContent,
+      Accordion, AccordionItem, AccordionTrigger, AccordionContent,
+      Alert, AlertTitle, AlertDescription,
+      Checkbox,
+      Slider,
+      Skeleton,
+      Spinner,
+      Progress,
+    } from "shadcn";
+
+    function ComponentShowcase() {
+      const [darkMode, setDarkMode] = useState(false);
+      const [sliderVal, setSliderVal] = useState([50]);
+      const [checked, setChecked] = useState(false);
+      const [progress, setProgress] = useState(42);
+
+      return (
+        <div className={darkMode ? "dark" : ""}>
+          <div className="min-h-screen bg-background text-foreground transition-colors">
+            <div className="max-w-2xl mx-auto py-12 px-4 space-y-8">
+
+              {/* Header */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-3xl font-bold tracking-tight">shadcn-ui-bundled</h1>
+                  <p className="text-muted-foreground mt-1">Local test — all components from CDN</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="dark-toggle" className="text-sm">Dark</Label>
+                  <Switch id="dark-toggle" checked={darkMode} onCheckedChange={setDarkMode} />
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Buttons */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Buttons</CardTitle>
+                  <CardDescription>All button variants</CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-wrap gap-2">
+                  <Button>Default</Button>
+                  <Button variant="secondary">Secondary</Button>
+                  <Button variant="destructive">Destructive</Button>
+                  <Button variant="outline">Outline</Button>
+                  <Button variant="ghost">Ghost</Button>
+                  <Button variant="link">Link</Button>
+                </CardContent>
+              </Card>
+
+              {/* Badges */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Badges</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-wrap gap-2">
+                  <Badge>Default</Badge>
+                  <Badge variant="secondary">Secondary</Badge>
+                  <Badge variant="outline">Outline</Badge>
+                  <Badge variant="destructive">Destructive</Badge>
+                </CardContent>
+              </Card>
+
+              {/* Tabs */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Tabs</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Tabs defaultValue="tab1">
+                    <TabsList>
+                      <TabsTrigger value="tab1">Account</TabsTrigger>
+                      <TabsTrigger value="tab2">Password</TabsTrigger>
+                      <TabsTrigger value="tab3">Settings</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="tab1" className="mt-4 space-y-3">
+                      <Label>Name</Label>
+                      <Input placeholder="John Doe" />
+                    </TabsContent>
+                    <TabsContent value="tab2" className="mt-4 space-y-3">
+                      <Label>Current password</Label>
+                      <Input type="password" placeholder="••••••••" />
+                    </TabsContent>
+                    <TabsContent value="tab3" className="mt-4">
+                      <p className="text-sm text-muted-foreground">Settings go here.</p>
+                    </TabsContent>
+                  </Tabs>
+                </CardContent>
+              </Card>
+
+              {/* Form controls */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Form Controls</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <Checkbox checked={checked} onCheckedChange={setChecked} id="terms" />
+                    <Label htmlFor="terms">Accept terms and conditions</Label>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Slider: {sliderVal[0]}%</Label>
+                    <Slider value={sliderVal} onValueChange={setSliderVal} max={100} step={1} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Progress: {progress}%</Label>
+                    <Progress value={progress} />
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="outline" onClick={() => setProgress(Math.max(0, progress - 10))}>-10</Button>
+                      <Button size="sm" variant="outline" onClick={() => setProgress(Math.min(100, progress + 10))}>+10</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Accordion */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Accordion</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                      <AccordionContent>Yes. It follows WAI-ARIA patterns.</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
+                      <AccordionTrigger>Is it styled?</AccordionTrigger>
+                      <AccordionContent>Yes. Tailwind CSS v4 with shadcn design tokens.</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-3">
+                      <AccordionTrigger>Is it animated?</AccordionTrigger>
+                      <AccordionContent>Yes. With CSS transitions via Base UI.</AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </CardContent>
+              </Card>
+
+              {/* Alert */}
+              <Alert>
+                <AlertTitle>Everything works!</AlertTitle>
+                <AlertDescription>
+                  This page loads shadcn components from a local standalone bundle with zero build step.
+                </AlertDescription>
+              </Alert>
+
+              {/* Skeleton */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Loading States</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-[250px]" />
+                      <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Spinner className="size-4" />
+                    <span className="text-sm text-muted-foreground">Loading...</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    createRoot(document.getElementById("root")!).render(<ComponentShowcase />);
+  </script>
+</body>
+</html>

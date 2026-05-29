@@ -1,0 +1,22 @@
+node_modules/
+.tmp-scaffold/
+
+# Build output (regenerated from source)
+package/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Lock files in scaffold (not the package one)
+.tmp-scaffold/package-lock.json
