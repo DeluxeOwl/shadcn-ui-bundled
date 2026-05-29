@@ -1,47 +1,43 @@
 <!--
-  ╔══════════════════════════════════════════════════════════════════╗
-  ║  SINGLE-FILE REACT + SHADCN + TAILWIND v4 TEMPLATE             ║
-  ╚══════════════════════════════════════════════════════════════════╝
+Everything lives in this one HTML file. No bundler, no node_modules, no build step.
 
-  Everything lives in this one HTML file. No bundler, no node_modules, no build step.
+STACK (all loaded via CDN):
+- React 19 + ReactDOM (ESM via esm.sh)
+- Tailwind CSS v4 (browser runtime)
+- shadcn components via "shadcn-ui-bundled/standalone"
+- Babel standalone (so you can write TSX directly in a <script> tag)
 
-  STACK (all loaded via CDN):
-    • React 19 + ReactDOM (ESM via esm.sh)
-    • Tailwind CSS v4 (browser runtime)
-    • shadcn components via "shadcn-ui-bundled/standalone"
-    • Babel standalone (so you can write TSX directly in a <script> tag)
+HOW IT WORKS:
+1. Tailwind v4 browser runtime is loaded and configured in <style type="text/tailwindcss">.
+2. The @theme inline block maps Tailwind color utilities (bg-primary, text-muted-foreground, etc.)
+    to CSS custom properties (--primary, --muted-foreground, etc.) defined in :root.
+    This block is REQUIRED — without it, shadcn component styles won't render.
+3. The import map lets you use bare specifiers: import { Button } from "shadcn"
+4. Babel compiles <script type="text/babel"> blocks so you can write TSX inline.
+5. Your app code goes in the final <script> tag — import React hooks, shadcn components,
+    and render into #root. That's it.
 
-  HOW IT WORKS:
-    1. Tailwind v4 browser runtime is loaded and configured in <style type="text/tailwindcss">.
-    2. The @theme inline block maps Tailwind color utilities (bg-primary, text-muted-foreground, etc.)
-       to CSS custom properties (--primary, --muted-foreground, etc.) defined in :root.
-       This block is REQUIRED — without it, shadcn component styles won't render.
-    3. The import map lets you use bare specifiers: import { Button } from "shadcn"
-    4. Babel compiles <script type="text/babel"> blocks so you can write TSX inline.
-    5. Your app code goes in the final <script> tag — import React hooks, shadcn components,
-       and render into #root. That's it.
+Available shadcn (baseui variant) components (import from "shadcn"):
+  Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, Breadcrumb,
+  Button, Calendar, Card, Carousel, Chart, Checkbox, Collapsible, Combobox,
+  Command, ContextMenu, Dialog, Drawer, DropdownMenu, Empty, Field,
+  HoverCard, Input, InputGroup, InputOTP, Item, Kbd, Label, Menubar,
+  NativeSelect, NavigationMenu, Pagination, Popover, Progress, RadioGroup,
+  Resizable, ScrollArea, Select, Separator, Sheet, Sidebar, Skeleton,
+  Slider, Spinner, Switch, Table, Tabs, Textarea, Toggle, ToggleGroup,
+  Tooltip, Toaster
+  (Each component family has sub-components, e.g. Card → CardHeader, CardTitle, CardContent, etc.)
 
-  AVAILABLE SHADCN COMPONENTS (import from "shadcn"):
-    Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, Breadcrumb,
-    Button, Calendar, Card, Carousel, Chart, Checkbox, Collapsible, Combobox,
-    Command, ContextMenu, Dialog, Drawer, DropdownMenu, Empty, Field,
-    HoverCard, Input, InputGroup, InputOTP, Item, Kbd, Label, Menubar,
-    NativeSelect, NavigationMenu, Pagination, Popover, Progress, RadioGroup,
-    Resizable, ScrollArea, Select, Separator, Sheet, Sidebar, Skeleton,
-    Slider, Spinner, Switch, Table, Tabs, Textarea, Toggle, ToggleGroup,
-    Tooltip, Toaster
-    (Each component family has sub-components, e.g. Card → CardHeader, CardTitle, CardContent, etc.)
+CUSTOMIZATION:
+- To change the theme, edit the CSS custom properties in :root (uses oklch colors).
+- To add dark mode, add a .dark {} block overriding the same variables.
+- To install extra npm packages, add them to the import map pointing to esm.sh.
 
-  CUSTOMIZATION:
-    • To change the theme, edit the CSS custom properties in :root (uses oklch colors).
-    • To add dark mode, add a .dark {} block overriding the same variables.
-    • To install extra npm packages, add them to the import map pointing to esm.sh.
-
-  RULES:
-    • Keep everything in this single file.
-    • Write your React TSX inside <script type="text/babel" data-type="module" data-presets="tsx-auto">.
-    • Use Tailwind classes for all styling.
-    • Import shadcn components as needed from "shadcn".
+RULES:
+- Keep everything in this single file.
+- Write your React TSX inside <script type="text/babel" data-type="module" data-presets="tsx-auto">.
+- Use Tailwind classes for all styling.
+- Import shadcn components as needed from "shadcn".
 -->
 <!DOCTYPE html>
 <html lang="en">
