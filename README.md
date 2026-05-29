@@ -1,5 +1,7 @@
 # shadcn-ui-bundled
 
+See [llm-example.html](./package/examples/llm-example.html).
+
 **All 55 [shadcn/ui](https://ui.shadcn.com/) components in a single HTML file. No build step. No CLI. No node_modules.**
 
 ```html
@@ -139,13 +141,13 @@ Save this as `app.html` and open it:
 
 ### How it works
 
-| Piece | What it does |
-|---|---|
-| `@tailwindcss/browser@4` | Scans the DOM for Tailwind classes, generates CSS at runtime |
-| `<style type="text/tailwindcss">` | Tailwind theme config + shadcn CSS variables (colors, radii) |
-| `<script type="importmap">` | Maps `"react"` and `"shadcn"` to CDN URLs — no bundler needed |
-| `@babel/standalone` | Compiles JSX/TSX to JS in the browser |
-| `shadcn-ui-bundled/standalone` | All 55 components in one ESM file, React externalized |
+| Piece                             | What it does                                                  |
+| --------------------------------- | ------------------------------------------------------------- |
+| `@tailwindcss/browser@4`          | Scans the DOM for Tailwind classes, generates CSS at runtime  |
+| `<style type="text/tailwindcss">` | Tailwind theme config + shadcn CSS variables (colors, radii)  |
+| `<script type="importmap">`       | Maps `"react"` and `"shadcn"` to CDN URLs — no bundler needed |
+| `@babel/standalone`               | Compiles JSX/TSX to JS in the browser                         |
+| `shadcn-ui-bundled/standalone`    | All 55 components in one ESM file, React externalized         |
 
 ---
 
@@ -168,10 +170,10 @@ See [`examples/test-custom-theme.html`](package/examples/test-custom-theme.html)
 
 ## Examples
 
-| File | Description |
-|---|---|
-| [`examples/test.html`](package/examples/test.html) | Component showcase — buttons, cards, tabs, accordion, inputs, badges, and more |
-| [`examples/test-custom-theme.html`](package/examples/test-custom-theme.html) | Live theme switcher — pick from 5 color themes, toggle dark mode |
+| File                                                                         | Description                                                                    |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [`examples/test.html`](package/examples/test.html)                           | Component showcase — buttons, cards, tabs, accordion, inputs, badges, and more |
+| [`examples/test-custom-theme.html`](package/examples/test-custom-theme.html) | Live theme switcher — pick from 5 color themes, toggle dark mode               |
 
 Both are single HTML files. No server required (though some components may need HTTP due to ES module CORS — use `python3 -m http.server`).
 
@@ -197,10 +199,10 @@ Both are single HTML files. No server required (though some components may need 
 
 ## Two Builds
 
-| Build | File | Size | Use case |
-|---|---|---|---|
-| **Standalone** | `dist/index.standalone.mjs` | 2.3 MB (460 KB gz) | CDN / single HTML file — all deps bundled, only React external |
-| **Lean** | `dist/index.mjs` | 179 KB (28 KB gz) | npm + bundler (Vite, Next.js) — deps resolved from node_modules |
+| Build          | File                        | Size               | Use case                                                        |
+| -------------- | --------------------------- | ------------------ | --------------------------------------------------------------- |
+| **Standalone** | `dist/index.standalone.mjs` | 2.3 MB (460 KB gz) | CDN / single HTML file — all deps bundled, only React external  |
+| **Lean**       | `dist/index.mjs`            | 179 KB (28 KB gz)  | npm + bundler (Vite, Next.js) — deps resolved from node_modules |
 
 The standalone build bundles everything (@base-ui/react, lucide-react, recharts, date-fns, etc.) so your importmap only needs React + this one file.
 
