@@ -1,6 +1,6 @@
 {
   "name": "shadcn-ui-bundled",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "All shadcn/ui components (Base UI variant) bundled as a single ESM package. Zero CLI, CDN-ready.",
   "type": "module",
   "main": "./dist/index.mjs",
