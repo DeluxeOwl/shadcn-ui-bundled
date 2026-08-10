@@ -50,6 +50,7 @@ export { NavigationMenu, NavigationMenuContent, NavigationMenuIndicator, Navigat
 export { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "./components/ui/pagination"
 export { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "./components/ui/popover"
 export { Progress, ProgressTrack, ProgressIndicator, ProgressLabel, ProgressValue } from "./components/ui/progress"
+export { Questionnaire, QuestionnaireActions, QuestionnaireChoice, QuestionnaireChoiceDescription, QuestionnaireChoices, QuestionnaireDescription, QuestionnaireError, QuestionnaireInput, QuestionnaireItem, QuestionnaireNext, QuestionnairePrevious, QuestionnaireProgress, QuestionnaireSkip, QuestionnaireSubmit, QuestionnaireTitle } from "./components/ui/questionnaire"
 export { RadioGroup, RadioGroupItem } from "./components/ui/radio-group"
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable"
 export { ScrollArea, ScrollBar } from "./components/ui/scroll-area"
