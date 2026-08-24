@@ -1,6 +1,6 @@
 {
   "name": "shadcn-ui-bundled",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "All shadcn/ui components (Base UI variant) bundled as a single ESM package. Zero CLI, CDN-ready.",
   "type": "module",
   "main": "./dist/index.mjs",
@@ -47,10 +47,10 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "embla-carousel-react": "^8.6.0",
-    "input-otp": "^1.4.2",
-    "lucide-react": "^1.31.0",
+    "input-otp": "^1.5.0",
+    "lucide-react": "^1.33.0",
     "react-day-picker": "^10.0.1",
-    "react-resizable-panels": "^4.12.2",
+    "react-resizable-panels": "^4.12.3",
     "recharts": "^3.8.0",
     "tailwind-merge": "^3.6.0"
   },
